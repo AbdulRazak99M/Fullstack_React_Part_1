@@ -1,43 +1,46 @@
 import { useState } from "react";
 
-const part1 = "Fundamentals of React";
-const exercises1 = 10;
-const part2 = "Using props to pass data";
-const exercises2 = 7;
-const part3 = "State of a component";
-const exercises3 = 14;
-const course = "Half Stack application development";
-
-const Header = () => {
-  return (<h1>{course}</h1>)
+const Header = (props) => {
+  return <h1>{props.Header}</h1>;
 };
 
-
-const Content = () => {
-  return (
-    <>
-      <p>
-        {part1} {exercises1}
+const Content = (props) => {
+  // console.log(props);
+  let content = props.Parts.map((obj,index) => {
+    return (
+      <p key={index}>
+        {obj.name} {obj.exercises}
       </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-    </>
-  );
+    );
+  });
+  return <>{content}</>;
 };
-const Total = () => {
-  return (<p>Number of exercises {exercises1 + exercises2 + exercises3}</p>)
+const Total = (props) => {
+  let total = 0;
+  props.Parts.forEach(obj=> total += obj.exercises)
+  return <p>Number of exercises {total}</p>;
 };
 
 const App = () => {
+  const course = { name: "Half Stack application development",
+   Parts : [{
+    name: "Fundamentals of React",
+    exercises: 10,
+  },
+   {
+    name: "Using props to pass data",
+    exercises: 7,
+  },
+  {
+    name: "State of a component",
+    exercises: 14,
+  }],
+}
   return (
     <div>
-      <Header />
-      <Content />
-      <Total />
+      <Header Header={course.name} />
+      <Content Parts={course.Parts} />
+      <Total Parts={course.Parts} />
     </div>
   );
 };
