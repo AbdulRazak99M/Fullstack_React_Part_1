@@ -18,11 +18,9 @@ function App() {
   const onClickAddVote = () => {
    
     const voteCopy = [...votes];
-     console.log("before" + voteCopy);
     voteCopy[selected] += 1;
     setVotes(voteCopy); // Update state
     setMostVoted(voteCopy.indexOf(Math.max(...voteCopy)));
-    console.log("after" + voteCopy);
   };
   const onClickNextAnecdote = () => {
     let randomInteger = Math.floor(Math.random() * anecdotes.length);
